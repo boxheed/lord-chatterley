@@ -1,0 +1,9 @@
+.question {
+    --border-color: var(--sl-color-sky-500);
+    width: 100%;
+}
+
+.response {
+    --border-color: var(--sl-color-green-500);
+    width: 100%;
+}

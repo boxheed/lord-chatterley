@@ -1,0 +1,15 @@
+---
+interface Props {
+    components: string[];
+}
+
+const { components = [] } = Astro.props;
+---
+
+<script  define:vars={{ components }} type="module">
+	await Promise.allSettled(
+	components.map(component => 
+			customElements.whenDefined(component))
+	);
+	document.body.classList.add('ready');
+</script>
