@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^10.2.0",
-    "astro": "^4.6.3"
+    "astro": "^4.6.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240405.0",

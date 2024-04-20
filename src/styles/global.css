@@ -1,9 +1,39 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.chat-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column-reverse; /* This reverses the order so new messages appear at the bottom */
+}
+  
+.conversation-history {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    word-wrap: break-word; /* Allow text to wrap within the container */
+}
+  
+.user-message {
+    width: 100%;
+    margin-top: auto; /* Keep input box at bottom */
+}
+
 .question {
     --border-color: var(--sl-color-sky-500);
     width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .response {
     --border-color: var(--sl-color-green-500);
     width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
