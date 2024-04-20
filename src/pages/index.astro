@@ -11,9 +11,6 @@ import '../styles/global.css';
 				<h1>Chat with Lord Chatterley</h1>
 			</div>
 			<div class="pure-u-1" id="chat-panel"> 
-				<sl-card class="question">
-					This is a question
-				</sl-card>
 			</div>
 			<div class="pure-u-1" id="question-panel"> 	
 				<sl-card style="width: 100%; position: absolute; bottom: 0;">
@@ -35,3 +32,63 @@ import '../styles/global.css';
 		</div>
 	</main>
 </Layout>
+
+
+<script>
+	const button = document.querySelector('sl-button');
+	
+
+	async function chat() {
+
+		const chatPanel = document.getElementById("chat-panel");
+		const questionField = document.getElementById("question-field");
+		const questionCard = document.createElement("sl-card");
+		questionCard.classList.add("question");
+		const question = questionField.value;
+		questionField.value = "";
+		// Set card content (optional)
+		const questionContent = document.createElement("p");
+		questionContent.textContent = question;
+		questionCard.appendChild(questionContent);
+		
+		// Insert the card element into the container
+		chatPanel.appendChild(questionCard);
+		// Send request to server
+		const data = {
+			"prompt": question
+		};
+		
+		const response = await fetch("./api/chat", 
+		{
+			method: "POST", // *GET, POST, PUT, DELETE, etc.
+			mode: "cors", // no-cors, *cors, same-origin
+			cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+			credentials: "include", // include, *same-origin, omit
+			headers: {
+				"Content-Type": "application/json"
+			},
+			redirect: "follow", // manual, *follow, error
+			referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+			body: JSON.stringify(data), // body data type must match "Content-Type" header
+		});
+		
+  		const responseBody = await response.text();
+		const responseJson = JSON.parse(responseBody);
+		const answer = responseJson.response;
+
+		const responseCard = document.createElement("sl-card");
+		responseCard.classList.add("response");
+		// Set card content (optional)
+
+		const responseContent = document.createElement("p");
+		responseContent.textContent = answer;
+		responseCard.appendChild(responseContent);
+		
+		// Insert the card element into the container
+		chatPanel.appendChild(responseCard);
+	};
+
+	button.addEventListener('click', event => {
+		chat()
+	});
+</script>
