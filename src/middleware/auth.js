@@ -16,7 +16,7 @@ async function auth({ redirect, locals, url, request}, next) {
     }
     const cookies = parse(cookieHeader);
     const session = await getSessionFromCookie(cookies, env.WORKOS_COOKIE_PASSWORD);
-
+    //console.log(session);
     // If no session, redirect the user to the login page
     if (!session) {
         console.log("No session");
@@ -29,6 +29,7 @@ async function auth({ redirect, locals, url, request}, next) {
     const hasValidSession = await verifyAccessToken(session.accessToken, JWKS);
 
     // If the session is valid, move on to the next function
+    locals.identity = session.user;
     if (hasValidSession) {
         console.log("Valid Session");
         return await next();
