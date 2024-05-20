@@ -57,6 +57,7 @@ import '../styles/global.css';
 
 <script>
 	import { v4 as uuidv4 } from 'uuid';
+	import { SSE } from 'sse.js';
 
 	const button = document.querySelector('sl-button');
 	
@@ -90,8 +91,40 @@ import '../styles/global.css';
 				"prompt": question,
 				"uuid": answerUuid
 			};
+
 			
-			const response = await fetch("./api/chat", 
+			let answer = "";
+			const source = new SSE("./api/chatstream", {
+				payload: JSON.stringify(data)
+			}); // Workers AI streaming endpoint
+			source.onmessage = (event) => {
+				if (event.data == "[DONE]") {
+					source.close();
+					
+					const responseCard = document.createElement("sl-card");
+					responseCard.id = answerUuid;
+					responseCard.classList.add("response");
+					// Set card content (optional)
+					
+					const responseContent = document.createElement("p");
+					responseContent.textContent = answer;
+					responseCard.appendChild(responseContent);
+					
+					// Insert the card element into the container
+					chatPanel.appendChild(responseCard);
+					
+					const progressBar = document.getElementById("pg-bar");
+					if(progressBar) {
+						progressBar.remove();
+					}
+					return;
+				}
+				const data = JSON.parse(event.data);
+				answer += data.response;
+				console.log(data.response);
+			};
+			/*
+			const response = await fetch("./api/chatstream", 
 			{
 				method: "POST", // *GET, POST, PUT, DELETE, etc.
 				mode: "cors", // no-cors, *cors, same-origin
@@ -120,10 +153,7 @@ import '../styles/global.css';
 			
 			// Insert the card element into the container
 			chatPanel.appendChild(responseCard);
-		}
-		const progressBar = document.getElementById("pg-bar");
-		if(progressBar) {
-			progressBar.remove();
+			*/
 		}
 	};
 

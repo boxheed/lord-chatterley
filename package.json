@@ -18,6 +18,7 @@
     "iron-session": "^8.0.1",
     "jose": "^5.2.4",
     "matcher": "^5.0.0",
+    "sse.js": "^2.4.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
