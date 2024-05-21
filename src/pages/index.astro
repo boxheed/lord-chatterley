@@ -74,17 +74,24 @@ import '../styles/global.css';
 
 			questionField.value = "";
 			// Set card content (optional)
-			const questionContent = document.createElement("p");
+			const questionContent = document.createElement("span");
 			questionContent.textContent = question;
 			questionCard.appendChild(questionContent);
 			
 			// Insert the card element into the container
 			chatPanel.appendChild(questionCard);
+
+			const responseCard = document.createElement("sl-card");
+			responseCard.id = answerUuid;
+			responseCard.classList.add("response");
+			const responseContent = document.createElement("span");
+			responseCard.appendChild(responseContent);
+
 			const progressBar = document.createElement("sl-progress-bar");
 			progressBar.indeterminate = true;
 			progressBar.id="pg-bar";
-			chatPanel.appendChild(progressBar);
-
+			responseCard.appendChild(progressBar);
+			chatPanel.appendChild(responseCard);
 			
 			// Send request to server
 			const data = {
@@ -100,60 +107,20 @@ import '../styles/global.css';
 			source.onmessage = (event) => {
 				if (event.data == "[DONE]") {
 					source.close();
-					
-					const responseCard = document.createElement("sl-card");
-					responseCard.id = answerUuid;
-					responseCard.classList.add("response");
-					// Set card content (optional)
-					
-					const responseContent = document.createElement("p");
-					responseContent.textContent = answer;
-					responseCard.appendChild(responseContent);
-					
-					// Insert the card element into the container
-					chatPanel.appendChild(responseCard);
-					
 					const progressBar = document.getElementById("pg-bar");
 					if(progressBar) {
 						progressBar.remove();
 					}
 					return;
 				}
+				const progressBar = document.getElementById("pg-bar");
+				if(progressBar) {
+					progressBar.remove();
+				}
 				const data = JSON.parse(event.data);
-				answer += data.response;
+				responseContent.textContent = responseContent.textContent + data.response;
 				console.log(data.response);
 			};
-			/*
-			const response = await fetch("./api/chatstream", 
-			{
-				method: "POST", // *GET, POST, PUT, DELETE, etc.
-				mode: "cors", // no-cors, *cors, same-origin
-				cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-				credentials: "include", // include, *same-origin, omit
-				headers: {
-					"Content-Type": "application/json"
-				},
-				redirect: "follow", // manual, *follow, error
-				referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-				body: JSON.stringify(data), // body data type must match "Content-Type" header
-			});
-			
-			const responseBody = await response.text();
-			const responseJson = JSON.parse(responseBody);
-			const answer = responseJson.response;
-			
-			const responseCard = document.createElement("sl-card");
-			responseCard.id = answerUuid;
-			responseCard.classList.add("response");
-			// Set card content (optional)
-			
-			const responseContent = document.createElement("p");
-			responseContent.textContent = answer;
-			responseCard.appendChild(responseContent);
-			
-			// Insert the card element into the container
-			chatPanel.appendChild(responseCard);
-			*/
 		}
 	};
 

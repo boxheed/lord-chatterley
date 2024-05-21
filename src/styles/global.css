@@ -37,3 +37,9 @@ body {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+#pg-bar {
+    --indicator-color: var(--sl-color-green-500);
+    padding-top: 5px;
+    width: 20px;
+}
