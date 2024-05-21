@@ -13,14 +13,15 @@ export async function POST({ locals, params, request }) {
           { role: 'user', content: payload.prompt }
         ]
       };
+
+    const prompt = JSON.stringify(question);
   
     const stream = await ai.run('@cf/meta/llama-2-7b-chat-int8', {
         stream: true,
-        prompt: payload.prompt
+        prompt: prompt
     });
 
   
-    //return Response.json(answer);
     return new Response(stream, {
         headers: {
           "content-type": "text/event-stream",
