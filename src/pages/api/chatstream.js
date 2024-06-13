@@ -16,7 +16,7 @@ export async function POST({ locals, params, request }) {
 
     const prompt = JSON.stringify(question);
   
-    const stream = await ai.run('@cf/meta/llama-2-7b-chat-int8', {
+    const stream = await ai.run('@hf/thebloke/mistral-7b-instruct-v0.1-awq', {
         stream: true,
         prompt: prompt
     });
