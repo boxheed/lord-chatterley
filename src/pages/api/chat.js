@@ -14,7 +14,7 @@ export async function POST({ locals, params, request }) {
         ]
       };
   
-    const answer = await ai.run('@cf/meta/llama-2-7b-chat-int8', question);
+    const answer = await ai.run('@hf/thebloke/mistral-7b-instruct-v0.1-awq', question);
   
     return Response.json(answer);
 }
