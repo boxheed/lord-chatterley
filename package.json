@@ -15,7 +15,7 @@
     "@astrojs/cloudflare": "^10.2.0",
     "@workos-inc/node": "^7.1.0",
     "astro": "^4.16.3",
-    "iron-session": "^8.0.1",
+    "iron-session": "^8.0.4",
     "jose": "^5.2.4",
     "matcher": "^5.0.0",
     "sse.js": "^2.4.1",
