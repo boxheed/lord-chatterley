@@ -14,7 +14,7 @@
   "dependencies": {
     "@astrojs/cloudflare": "^10.2.0",
     "@workos-inc/node": "^7.1.0",
-    "astro": "^4.16.3",
+    "astro": "^4.16.18",
     "iron-session": "^8.0.4",
     "jose": "^5.2.4",
     "matcher": "^5.0.0",
