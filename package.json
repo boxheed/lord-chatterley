@@ -13,18 +13,18 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.6",
+    "@astrojs/cloudflare": "^14.2.0",
     "@workos-inc/node": "^7.1.0",
-    "astro": "^5.4.2",
+    "astro": "^7.2.0",
     "iron-session": "^8.0.4",
     "jose": "^5.2.4",
     "matcher": "^5.0.0",
     "sse.js": "^2.4.1",
-    "uuid": "^9.0.1"
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240405.0",
-    "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
     "wrangler": "^4.84.1"
   }
 }
